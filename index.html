@@ -33,7 +33,6 @@
     </div>
 
     <script>
-        // --- AZURE CONFIGURATION ---
         const AZURE_KEY = "7KzgEmvTsbdg8Aii1QNfDa2n0FYfAG2KcrZ2OjhHjCx5MwWOWrwcJQQJ99CEACNns7RXJ3w3AAAbACOGhKkl"; 
         const AZURE_REGION = "koreacentral"; 
 
@@ -49,7 +48,6 @@
 
             resultDiv.innerText = "Translating via Azure...";
 
-            // Microsoft Translator API URL
             const url = `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=${language}`;
 
             try {
@@ -60,14 +58,12 @@
                         "Ocp-Apim-Subscription-Region": AZURE_REGION,
                         "Content-Type": "application/json"
                     },
-                    // Azure API requires an array of JSON objects
                     body: JSON.stringify([{ "text": text }])
                 });
 
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Extracting the translated text from Azure's JSON response
                     resultDiv.innerText = data[0].translations[0].text;
                 } else {
                     resultDiv.innerText = "Azure Error: " + data.error.message;
